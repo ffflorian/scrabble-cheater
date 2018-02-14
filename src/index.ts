@@ -4,23 +4,33 @@ import * as readline from 'readline';
 import * as clipboard from 'clipboardy';
 
 export default class ScrabbleCheater {
-  private words: Array<string> = [];
+  private dictionary: Array<string> = [];
 
-  constructor(private wordListPath: string, private singleMode?: boolean) {}
+  constructor(private wordListPath: string, private maximum = 0, private singleMode?: boolean, private letters?: string) {}
 
   public start(): Promise<Array<string>> {
     return this.loadWords()
-      .then(count => {
-        if (count) {
-          console.info(`${count} word${count > 1 ? 's' : ''} loaded.`);
+      .then(length => {
+        if (length) {
+          console.info(`${length} word${length > 1 ? 's' : ''} loaded.`);
         } else {
           return Promise.reject('No words loaded. Wordlist file corrupt?');
+        }
+        if (this.letters) {
+          return this.formatLetters(this.letters);
         }
         return this.readLineAsync();
       })
       .then(letters => {
-        const matches = this.findMatches(letters);
-        console.log(`${matches.length} matches found.`);
+        let matches = this.findMatches(letters);
+        process.stdout.write(`${matches.length} matches found`);
+
+        if (this.maximum) {
+          process.stdout.write(`, ${this.singleMode ? 'sending' : 'displaying'} the first ${this.maximum}`);
+          matches = matches.slice(0, this.maximum);
+        }
+
+        process.stdout.write('.\n');
 
         if (this.singleMode) {
           this.singleOutput(matches);
@@ -32,18 +42,22 @@ export default class ScrabbleCheater {
   private findMatches(letters: string): Array<string> {
     const regex = new RegExp(`^[${letters}]+\$`);
 
-    return this.words
+    return this.dictionary
       .filter(value => regex.test(value))
       .sort((a, b) => b.length - a.length);
+  }
+
+  private formatLetters(letters: string): string {
+    const regex = new RegExp('[^A-Za-z]');
+    return letters.replace(regex, '').toLowerCase();
   }
 
   private loadWords(): Promise<number> {
     const regex = new RegExp('^[A-Za-z]+$', 'g');
 
     return this.readFileAsync(this.wordListPath).then(wordList => {
-      this.words = wordList.split('\n').filter(value => regex.test(value));
-
-      return this.words.length;
+      this.dictionary = wordList.split('\n').filter(value => regex.test(value));
+      return this.dictionary.length;
     });
   }
 
@@ -60,8 +74,6 @@ export default class ScrabbleCheater {
   }
 
   private readLineAsync(): Promise<string> {
-    const regex = new RegExp('[^A-Za-z]');
-
     return new Promise((resolve, reject) => {
       const rl = readline.createInterface({
         input: process.stdin,
@@ -69,7 +81,7 @@ export default class ScrabbleCheater {
       });
 
       rl.question('Letters? ', input => {
-        const letters = input.replace(regex, '').toLowerCase();
+        const letters = this.formatLetters(input);
         if (letters) {
           resolve(letters);
         } else {

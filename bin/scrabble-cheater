@@ -9,8 +9,9 @@ const program = require('commander');
 program
   .version(version)
   .description(description)
-  .option('-w, --wordlist <path>', 'Specify a wordlist file')
+  .option('-w, --wordlist <file>', 'Specify a wordlist file (mandatory)')
   .option('-m, --maximum <number>', 'Specify a maximum of results')
+  .option('-l, --letters <letters>', 'Specify letters')
   .option(
     '-s, --single',
     'Use single word output (copies each word to the clipboard)'
@@ -18,18 +19,20 @@ program
   .parse(process.argv);
 
 if (!program.wordlist) {
-  console.error('No wordlist file specified.');
+  console.error('  Error: no wordlist file specified.');
   program.help();
 }
 
-new ScrabbleCheater(program.wordlist, program.single)
+if (program.maximum && !parseInt(program.maximum, 10)) {
+  console.error('  Error: invalid maximum number specified.');
+  program.help();
+}
+
+new ScrabbleCheater(program.wordlist, program.maximum, program.single, program.letters)
   .start()
   .then(matches => {
     if (matches.length && !program.single) {
       console.log();
-      if (program.maximum) {
-        matches = matches.slice(0, program.maximum);
-      }
       console.log(matches.join('\n'));
     }
   })
