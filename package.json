@@ -29,5 +29,5 @@
     "start": "echo \"Run './bin/scrabble-cheater --help'\""
   },
   "types": "dist/index.d.ts",
-  "version": "1.0.1"
+  "version": "1.0.2"
 }
