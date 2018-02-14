@@ -9,6 +9,7 @@
   "devDependencies": {
     "@types/clipboardy": "1.1.0",
     "@types/node": "9.4.6",
+    "jasmine": "3.0.0",
     "prettier": "1.10.2",
     "rimraf": "2.6.2",
     "typescript": "2.7.1"
@@ -25,8 +26,9 @@
     "clear": "rimraf dist",
     "build": "tsc",
     "dist": "yarn clear && yarn build",
-    "prettier": "prettier --single-quote --write src/*.ts bin/*",
-    "start": "echo \"Run './bin/scrabble-cheater --help'\""
+    "prettier": "prettier --single-quote --write src/*.ts bin/* spec/**/*.js",
+    "start": "echo \"Run './bin/scrabble-cheater --help'\"",
+    "test": "jasmine --config=spec/support/jasmine.json"
   },
   "types": "dist/index.d.ts",
   "version": "1.0.2"

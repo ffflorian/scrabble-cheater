@@ -10,9 +10,9 @@ program
   .version(version)
   .description(description)
   .option('-w, --wordlist <file>', 'Specify a wordlist file (mandatory)')
-  .option('-m, --maximum <number>', 'Specify a maximum of results')
-  .option('-l, --letters <letters>', 'Specify letters')
   .option('-q, --quiet', 'Quiet mode: displays only the letters')
+  .option('-l, --letters <letters>', 'Specify letters')
+  .option('-m, --maximum <number>', 'Specify a maximum of results')
   .option(
     '-s, --single',
     'Single word mode: displays each word and copies it to the clipboard'
@@ -31,10 +31,10 @@ if (program.maximum && !parseInt(program.maximum, 10)) {
 
 new ScrabbleCheater(
   program.wordlist,
-  program.maximum,
-  program.single,
+  program.quiet,
   program.letters,
-  program.quiet
+  program.maximum,
+  program.single
 )
   .start()
   .then(matches => {

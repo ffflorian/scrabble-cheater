@@ -8,10 +8,10 @@ export default class ScrabbleCheater {
 
   constructor(
     private wordListPath: string,
-    private maximum = 0,
-    private singleMode = false,
+    private quietMode = false,
     private letters?: string,
-    private quietMode = false
+    private maximum = 0,
+    private singleMode = false
   ) {}
 
   public start(): Promise<Array<string>> {
@@ -54,7 +54,7 @@ export default class ScrabbleCheater {
     const regex = new RegExp(`^[${letters}]+\$`);
 
     return this.dictionary
-      .filter(value => regex.test(value))
+      .filter((value, index) => regex.test(value))
       .sort((a, b) => b.length - a.length);
   }
 
@@ -64,7 +64,7 @@ export default class ScrabbleCheater {
   }
 
   private loadWords(): Promise<number> {
-    const regex = new RegExp('^[A-Za-z]+$', 'g');
+    const regex = new RegExp('^[A-Za-z]+$');
 
     return this.readFileAsync(this.wordListPath).then(wordList => {
       this.dictionary = wordList.split('\n').filter(value => regex.test(value));
