@@ -13,14 +13,14 @@ export default class ScrabbleCheater {
         console.info(`${this.words.length} words loaded.`);
         return this.readLineAsync();
       })
-      .then(letters => this.findMatches(letters))
+      .then(letters => this.findMatches(letters));
   }
 
   private readLineAsync(): Promise<string> {
     return new Promise((resolve, reject) => {
       const rl = readline.createInterface({
         input: process.stdin,
-        output: process.stdout,
+        output: process.stdout
       });
 
       rl.question('Letters? ', input => {
@@ -36,7 +36,7 @@ export default class ScrabbleCheater {
   }
 
   private findMatches(letters: string): Array<string> {
-    const regex = new RegExp(`^[${letters}]+$`);
+    const regex = new RegExp(`^[${letters}]+\$`);
 
     const matches = this.words
       .reduce((accumulator: Array<string>, currentValue) => {
@@ -49,7 +49,9 @@ export default class ScrabbleCheater {
   }
 
   private loadWords() {
-    return this.readFileAsync(this.wordListPath).then(wordList => (this.words = wordList.split('\n')));
+    return this.readFileAsync(this.wordListPath).then(
+      wordList => (this.words = wordList.split('\n'))
+    );
   }
 
   private readFileAsync(filePath: string): Promise<string> {
