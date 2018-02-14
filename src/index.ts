@@ -16,25 +16,6 @@ export default class ScrabbleCheater {
       .then(letters => this.findMatches(letters));
   }
 
-  private readLineAsync(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-      });
-
-      rl.question('Letters? ', input => {
-        const letters = input.replace(/[^A-Za-z]/g, '').toLowerCase();
-        if (letters) {
-          resolve(letters);
-        } else {
-          reject('No letters entered');
-        }
-        rl.close();
-      });
-    });
-  }
-
   private findMatches(letters: string): Array<string> {
     const regex = new RegExp(`^[${letters}]+\$`);
 
@@ -62,6 +43,25 @@ export default class ScrabbleCheater {
         } else {
           resolve(data.toString());
         }
+      });
+    });
+  }
+
+  private readLineAsync(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+      });
+
+      rl.question('Letters? ', input => {
+        const letters = input.replace(/[^A-Za-z]/g, '').toLowerCase();
+        if (letters) {
+          resolve(letters);
+        } else {
+          reject('No letters entered');
+        }
+        rl.close();
       });
     });
   }
