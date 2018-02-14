@@ -11,6 +11,7 @@ program
   .description(description)
   .option('-w, --wordlist <path>', 'Specify a wordlist file')
   .option('-m, --maximum <number>', 'Specify a maximum of results')
+  .option('-s, --single', 'Use single word output (copies each word to the clipboard)')
   .parse(process.argv);
 
 if (!program.wordlist) {
@@ -18,11 +19,10 @@ if (!program.wordlist) {
   program.help();
 }
 
-new ScrabbleCheater(program.wordlist)
+new ScrabbleCheater(program.wordlist, program.single)
   .start()
   .then(matches => {
-    console.log(`${matches.length} matches found.`);
-    if (matches.length) {
+    if (matches.length && !program.single) {
       console.log();
       if (program.maximum) {
         matches = matches.slice(0, program.maximum);

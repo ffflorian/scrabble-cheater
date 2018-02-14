@@ -1,11 +1,13 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import * as readline from 'readline';
+import * as clipboard from 'clipboardy';
 
 export default class ScrabbleCheater {
   private words: Array<string> = [];
 
-  constructor(private wordListPath: string) {}
+  constructor(private wordListPath: string, private singleMode?: boolean) {
+  }
 
   public start(): Promise<Array<string>> {
     return this.loadWords()
@@ -17,7 +19,15 @@ export default class ScrabbleCheater {
         }
         return this.readLineAsync();
       })
-      .then(letters => this.findMatches(letters));
+      .then(letters => {
+        const matches = this.findMatches(letters);
+        console.log(`${matches.length} matches found.`);
+
+        if (this.singleMode) {
+          this.singleOutput(matches);
+        }
+        return matches;
+      });
   }
 
   private findMatches(letters: string): Array<string> {
@@ -32,9 +42,7 @@ export default class ScrabbleCheater {
     const regex = new RegExp('^[A-Za-z]+$', 'g');
 
     return this.readFileAsync(this.wordListPath).then(wordList => {
-      this.words = wordList
-        .split('\n')
-        .filter(value => regex.test(value));
+      this.words = wordList.split('\n').filter(value => regex.test(value));
 
       return this.words.length;
     });
@@ -53,6 +61,8 @@ export default class ScrabbleCheater {
   }
 
   private readLineAsync(): Promise<string> {
+    const regex = new RegExp('[^A-Za-z]');
+
     return new Promise((resolve, reject) => {
       const rl = readline.createInterface({
         input: process.stdin,
@@ -60,7 +70,7 @@ export default class ScrabbleCheater {
       });
 
       rl.question('Letters? ', input => {
-        const letters = input.replace(/[^A-Za-z]/g, '').toLowerCase();
+        const letters = input.replace(regex, '').toLowerCase();
         if (letters) {
           resolve(letters);
         } else {
@@ -69,5 +79,31 @@ export default class ScrabbleCheater {
         rl.close();
       });
     });
+  }
+
+  private singleOutput(matches: Array<string>): void {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+
+    let counter = 0;
+
+    console.log();
+
+    const next = () => {
+      console.log(matches[counter]);
+      clipboard.writeSync(matches[counter])
+      if (counter < matches.length - 1) {
+        console.log('Press Enter for the next word ...');
+        counter++;
+      } else {
+        return rl.close();
+      }
+    }
+
+    rl.on('line', next);
+
+    next();
   }
 }

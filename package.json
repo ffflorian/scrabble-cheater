@@ -1,7 +1,9 @@
 {
   "author": "Florian Keller <github@floriankeller.de>",
   "dependencies": {
+    "@types/clipboardy": "1.1.0",
     "@types/node": "9.4.6",
+    "clipboardy": "1.2.2",
     "commander": "2.14.1"
   },
   "devDependencies": {
