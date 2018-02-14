@@ -11,7 +11,10 @@ program
   .description(description)
   .option('-w, --wordlist <path>', 'Specify a wordlist file')
   .option('-m, --maximum <number>', 'Specify a maximum of results')
-  .option('-s, --single', 'Use single word output (copies each word to the clipboard)')
+  .option(
+    '-s, --single',
+    'Use single word output (copies each word to the clipboard)'
+  )
   .parse(process.argv);
 
 if (!program.wordlist) {

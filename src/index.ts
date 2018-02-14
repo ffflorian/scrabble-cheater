@@ -6,8 +6,7 @@ import * as clipboard from 'clipboardy';
 export default class ScrabbleCheater {
   private words: Array<string> = [];
 
-  constructor(private wordListPath: string, private singleMode?: boolean) {
-  }
+  constructor(private wordListPath: string, private singleMode?: boolean) {}
 
   public start(): Promise<Array<string>> {
     return this.loadWords()
@@ -93,14 +92,14 @@ export default class ScrabbleCheater {
 
     const next = () => {
       console.log(matches[counter]);
-      clipboard.writeSync(matches[counter])
+      clipboard.writeSync(matches[counter]);
       if (counter < matches.length - 1) {
         console.log('Press Enter for the next word ...');
         counter++;
       } else {
         return rl.close();
       }
-    }
+    };
 
     rl.on('line', next);
 
