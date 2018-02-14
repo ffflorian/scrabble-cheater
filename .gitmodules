@@ -1,0 +1,3 @@
+[submodule "scrabble-bot"]
+	path = scrabble-bot
+	url = https://github.com/AndyLnd/scrabble-bot

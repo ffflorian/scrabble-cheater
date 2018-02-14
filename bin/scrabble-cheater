@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+//@ts-check
+
+const { default: ScrabbleCheater } = require('../dist/');
+const program = require('commander');
+const { description, version } = require('../package.json');
+
+program
+  .version(version)
+  .description(description)
+  .option('-w, --wordlist <path>', 'Specify a wordlist file')
+  .option('-m, --maximum <number>', 'Specify a maximum of results')
+  .parse(process.argv);
+
+if (!program.wordlist) {
+  console.error('No wordlist file specified.');
+  program.help();
+}
+
+new ScrabbleCheater(program.wordlist)
+  .start()
+  .then(matches => {
+    console.log(`${matches.length} matches found.`);
+    if (matches.length) {
+      console.log();
+      if (program.maximum) {
+        matches = matches.slice(0, program.maximum);
+      }
+      console.log(matches.join('\n'));
+    }
+  })
+  .catch(err => console.error('Error:', err));
