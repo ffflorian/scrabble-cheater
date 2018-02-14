@@ -7,7 +7,7 @@ export default class ScrabbleCheater {
 
   constructor(private wordListPath: string) {}
 
-  public start() {
+  public start(): Promise<Array<string>> {
     return this.loadWords()
       .then(() => {
         console.info(`${this.words.length} words loaded.`);
@@ -48,7 +48,7 @@ export default class ScrabbleCheater {
     return matches;
   }
 
-  private loadWords() {
+  private loadWords(): Promise<Array<string>> {
     return this.readFileAsync(this.wordListPath).then(
       wordList => (this.words = wordList.split('\n'))
     );
