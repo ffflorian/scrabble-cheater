@@ -31,3 +31,14 @@ yarn dist
     -s, --single             Single word mode: displays each word and copies it to the clipboard
     -h, --help               output usage information
 ```
+
+## Include in your project
+```ts
+import ScrabbleCheater from 'scrabble-cheater';
+
+new ScrabbleCheater('./my-wordlist.txt')
+  .start()
+  .then(matches => {
+    console.log(matches); // [ 'match1', 'match2', ...]
+  });
+```
