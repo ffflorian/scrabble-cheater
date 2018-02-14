@@ -28,7 +28,7 @@
     "dist": "yarn clear && yarn build",
     "prettier": "prettier --single-quote --write src/*.ts bin/* spec/**/*.js",
     "start": "echo \"Run './bin/scrabble-cheater --help'\"",
-    "test": "jasmine --config=spec/support/jasmine.json"
+    "test": "yarn dist && jasmine --config=spec/support/jasmine.json"
   },
   "types": "dist/index.d.ts",
   "version": "1.0.2"
