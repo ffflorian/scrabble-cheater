@@ -1,5 +1,5 @@
 # ScrabbleCheater
-This is a simple cheating tool designed for Andy's [scrabble-bot](https://github.com/AndyLnd/scrabble-bot) (but can be used for a normal Scrabble game, too).
+This is a simple Scrabble cheating tool designed for Andy's [scrabble-bot](https://github.com/AndyLnd/scrabble-bot) (but can be used for a normal Scrabble game, too).
 
 Of course you shouldn't be using this and I'm not responsible if people call you a cheater.
 
@@ -11,7 +11,7 @@ yarn dist
 
 ## Run
 ```
-./bin/scrabble-cheater --help
+./bin/scrabble-cheater
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ yarn dist
     -w, --wordlist <file>    Specify a wordlist file (mandatory)
     -m, --maximum <number>   Specify a maximum of results
     -l, --letters <letters>  Specify letters
-    -q, --quiet              Quiet mode: display only the letters
-    -s, --single             Use single word output (copies each word to the clipboard)
+    -q, --quiet              Quiet mode: displays only the letters
+    -s, --single             Single word mode: displays each word and copies it to the clipboard
     -h, --help               output usage information
 ```

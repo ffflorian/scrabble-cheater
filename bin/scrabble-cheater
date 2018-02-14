@@ -12,10 +12,10 @@ program
   .option('-w, --wordlist <file>', 'Specify a wordlist file (mandatory)')
   .option('-m, --maximum <number>', 'Specify a maximum of results')
   .option('-l, --letters <letters>', 'Specify letters')
-  .option('-q, --quiet', 'Quiet mode: display only the letters')
+  .option('-q, --quiet', 'Quiet mode: displays only the letters')
   .option(
     '-s, --single',
-    'Use single word output (copies each word to the clipboard)'
+    'Single word mode: displays each word and copies it to the clipboard'
   )
   .parse(process.argv);
 
