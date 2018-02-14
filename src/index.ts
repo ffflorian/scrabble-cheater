@@ -6,13 +6,19 @@ import * as clipboard from 'clipboardy';
 export default class ScrabbleCheater {
   private dictionary: Array<string> = [];
 
-  constructor(private wordListPath: string, private maximum = 0, private singleMode?: boolean, private letters?: string) {}
+  constructor(
+    private wordListPath: string,
+    private maximum = 0,
+    private singleMode = false,
+    private letters?: string,
+    private quietMode = false
+  ) {}
 
   public start(): Promise<Array<string>> {
     return this.loadWords()
       .then(length => {
         if (length) {
-          console.info(`${length} word${length > 1 ? 's' : ''} loaded.`);
+          this.log(`${length} word${length > 1 ? 's' : ''} loaded.`);
         } else {
           return Promise.reject('No words loaded. Wordlist file corrupt?');
         }
@@ -23,14 +29,19 @@ export default class ScrabbleCheater {
       })
       .then(letters => {
         let matches = this.findMatches(letters);
-        process.stdout.write(`${matches.length} matches found`);
+        this.log(`${matches.length} matches found`, true);
 
         if (this.maximum) {
-          process.stdout.write(`, ${this.singleMode ? 'sending' : 'displaying'} the first ${this.maximum}`);
+          this.log(
+            `, ${this.singleMode ? 'sending' : 'displaying'} the first ${
+              this.maximum
+            }`,
+            true
+          );
           matches = matches.slice(0, this.maximum);
         }
 
-        process.stdout.write('.\n');
+        this.log('.\n\n', true);
 
         if (this.singleMode) {
           this.singleOutput(matches);
@@ -59,6 +70,16 @@ export default class ScrabbleCheater {
       this.dictionary = wordList.split('\n').filter(value => regex.test(value));
       return this.dictionary.length;
     });
+  }
+
+  private log(message: string, raw = false): void {
+    if (!this.quietMode) {
+      if (!raw) {
+        console.info(message);
+      } else {
+        process.stdout.write(message);
+      }
+    }
   }
 
   private readFileAsync(filePath: string): Promise<string> {
@@ -100,13 +121,11 @@ export default class ScrabbleCheater {
 
     let counter = 0;
 
-    console.log();
-
     const next = () => {
       console.log(matches[counter]);
       clipboard.writeSync(matches[counter]);
       if (counter < matches.length - 1) {
-        console.log('Press Enter for the next word ...');
+        this.log('Press Enter to copy the next word...');
         counter++;
       } else {
         return rl.close();

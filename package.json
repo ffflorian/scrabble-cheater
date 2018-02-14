@@ -4,7 +4,7 @@
     "clipboardy": "1.2.2",
     "commander": "2.14.1"
   },
-  "description": "A simple scrabble cheating tool",
+  "description": "A simple Scrabble cheating tool",
   "devDependencies": {
     "@types/clipboardy": "1.1.0",
     "@types/node": "9.4.6",

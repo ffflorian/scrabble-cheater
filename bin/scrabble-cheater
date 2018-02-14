@@ -12,6 +12,7 @@ program
   .option('-w, --wordlist <file>', 'Specify a wordlist file (mandatory)')
   .option('-m, --maximum <number>', 'Specify a maximum of results')
   .option('-l, --letters <letters>', 'Specify letters')
+  .option('-q, --quiet', 'Quiet mode: display only the letters')
   .option(
     '-s, --single',
     'Use single word output (copies each word to the clipboard)'
@@ -28,11 +29,16 @@ if (program.maximum && !parseInt(program.maximum, 10)) {
   program.help();
 }
 
-new ScrabbleCheater(program.wordlist, program.maximum, program.single, program.letters)
+new ScrabbleCheater(
+  program.wordlist,
+  program.maximum,
+  program.single,
+  program.letters,
+  program.quiet
+)
   .start()
   .then(matches => {
     if (matches.length && !program.single) {
-      console.log();
       console.log(matches.join('\n'));
     }
   })
