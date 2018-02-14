@@ -36,9 +36,9 @@ yarn dist
 ```ts
 import ScrabbleCheater from 'scrabble-cheater';
 
-new ScrabbleCheater('./my-wordlist.txt')
+new ScrabbleCheater('./my-wordlist.txt', 'l e t t e r s')
   .start()
   .then(matches => {
-    console.log(matches); // [ 'match1', 'match2', ...]
+    console.log(matches); // [ 'match1', 'match2', ... ]
   });
 ```

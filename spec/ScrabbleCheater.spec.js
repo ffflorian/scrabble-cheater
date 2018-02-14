@@ -7,7 +7,7 @@ const emptyList = path.resolve(__dirname, 'empty.txt');
 
 describe('ScrabbleCheater', () => {
   it('finds all words', done => {
-    const sc = new ScrabbleCheater(wordList, true, 'her');
+    const sc = new ScrabbleCheater(wordList, 'her', true);
     sc
       .start()
       .then(matches => {
@@ -20,7 +20,7 @@ describe('ScrabbleCheater', () => {
   });
 
   it(`Doesn't accept an empty file`, done => {
-    const sc = new ScrabbleCheater(emptyList, true);
+    const sc = new ScrabbleCheater(emptyList);
     sc
       .start()
       .then(() => done.fail())

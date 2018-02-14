@@ -10,8 +10,8 @@ program
   .version(version)
   .description(description)
   .option('-w, --wordlist <file>', 'Specify a wordlist file (mandatory)')
-  .option('-q, --quiet', 'Quiet mode: displays only the letters')
   .option('-l, --letters <letters>', 'Specify letters')
+  .option('-q, --quiet', 'Quiet mode: displays only the letters')
   .option('-m, --maximum <number>', 'Specify a maximum of results')
   .option(
     '-s, --single',
@@ -31,8 +31,8 @@ if (program.maximum && !parseInt(program.maximum, 10)) {
 
 new ScrabbleCheater(
   program.wordlist,
-  program.quiet,
   program.letters,
+  program.quiet,
   program.maximum,
   program.single
 )

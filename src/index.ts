@@ -8,8 +8,8 @@ export default class ScrabbleCheater {
 
   constructor(
     private wordListPath: string,
-    private quietMode = false,
     private letters?: string,
+    private quietMode = false,
     private maximum = 0,
     private singleMode = false
   ) {}
