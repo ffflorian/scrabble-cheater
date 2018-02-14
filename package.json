@@ -1,5 +1,6 @@
 {
   "author": "Florian Keller <github@floriankeller.de>",
+  "bin": "bin/scrabble-cheater",
   "dependencies": {
     "clipboardy": "1.2.2",
     "commander": "2.14.1"
@@ -17,7 +18,7 @@
     "dist"
   ],
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/index.js",
   "name": "scrabble-cheater",
   "repository": "https://github.com/ffflorian/scrabble-cheater.git",
   "scripts": {
