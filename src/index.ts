@@ -29,7 +29,7 @@ export default class ScrabbleCheater {
       })
       .then(letters => {
         let matches = this.findMatches(letters);
-        this.log(`${matches.length} matches found`, true);
+        this.log(`ScrabbleCheater: ${matches.length} matches found`, true);
 
         if (this.maximum) {
           this.log(
@@ -48,6 +48,11 @@ export default class ScrabbleCheater {
         }
         return matches;
       });
+  }
+
+  public setLetters(letters: string): Promise<ScrabbleCheater> {
+    this.letters = letters;
+    return Promise.resolve(this);
   }
 
   private findMatches(letters: string): Array<string> {
@@ -75,7 +80,7 @@ export default class ScrabbleCheater {
   private log(message: string, raw = false): void {
     if (!this.quietMode) {
       if (!raw) {
-        console.info(message);
+        console.info(`ScrabbleCheater: ${message}`);
       } else {
         process.stdout.write(message);
       }
