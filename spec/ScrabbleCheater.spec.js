@@ -1,6 +1,6 @@
 //@ts-check
 
-const { default: ScrabbleCheater } = require('../dist/');
+const { default: ScrabbleCheater } = require('../');
 const path = require('path');
 const wordList = path.resolve(__dirname, 'wordlist.txt');
 const emptyList = path.resolve(__dirname, 'empty.txt');
