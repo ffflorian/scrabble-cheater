@@ -26,7 +26,7 @@
     "clear": "rimraf dist",
     "build": "tsc",
     "dist": "yarn clear && yarn build",
-    "prettier": "prettier --single-quote --write src/*.ts bin/* spec/**/*.js",
+    "prettier": "prettier --write src/*.ts bin/* spec/**/*.js",
     "start": "yarn dist && echo \"Run './bin/scrabble-cheater --help'\"",
     "test": "yarn dist && jasmine --config=spec/support/jasmine.json"
   },
