@@ -3,7 +3,7 @@
   "bin": "bin/scrabble-cheater",
   "dependencies": {
     "clipboardy": "1.2.3",
-    "commander": "2.15.1"
+    "commander": "2.16.0"
   },
   "description": "A simple Scrabble cheating tool",
   "devDependencies": {
