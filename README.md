@@ -11,14 +11,14 @@ yarn dist
 
 ## Run
 ```
-./bin/scrabble-cheater
+dist/cli.js
 ```
 
 ## Usage
 ```
   Usage: scrabble-cheater [options]
 
-  A simple Scrabble cheating tool
+  A simple Scrabble cheating tool.
 
 
   Options:

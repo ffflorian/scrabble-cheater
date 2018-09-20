@@ -1,11 +1,13 @@
 {
   "author": "Florian Keller <github@floriankeller.de>",
-  "bin": "bin/scrabble-cheater",
+  "bin": {
+    "scrabble-cheater": "dist/cli.js"
+  },
   "dependencies": {
     "clipboardy": "1.2.3",
     "commander": "2.18.0"
   },
-  "description": "A simple Scrabble cheating tool",
+  "description": "A simple Scrabble cheating tool.",
   "devDependencies": {
     "@types/clipboardy": "1.1.0",
     "@types/jasmine": "2.8.8",
@@ -25,11 +27,11 @@
   "name": "scrabble-cheater",
   "repository": "https://github.com/ffflorian/scrabble-cheater.git",
   "scripts": {
-    "clear": "rimraf dist",
     "build": "tsc",
+    "clear": "rimraf dist",
     "dist": "yarn clear && yarn build",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.ts\"",
-    "start": "yarn dist && node ./bin/scrabble-cheater --help",
+    "start": "ts-node src/cli.ts --help",
     "test": "ts-node -P tsconfig.jasmine.json node_modules/.bin/jasmine"
   },
   "types": "dist/index.d.ts",

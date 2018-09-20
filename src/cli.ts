@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-//@ts-check
+import ScrabbleCheater from './';
+import program = require('commander');
 
-const { default: ScrabbleCheater } = require('../dist/');
-const { description, version } = require('../package.json');
-const program = require('commander');
+const { description, version }: {description: string; version: string} = require('../package.json');
 
 program
   .version(version)
