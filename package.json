@@ -29,7 +29,7 @@
     "build": "tsc",
     "dist": "yarn clear && yarn build",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.ts\"",
-    "start": "yarn dist && echo \"Run './bin/scrabble-cheater --help'\"",
+    "start": "yarn dist && node ./bin/scrabble-cheater --help",
     "test": "ts-node -P tsconfig.jasmine.json node_modules/.bin/jasmine"
   },
   "types": "dist/index.d.ts",
