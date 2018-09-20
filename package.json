@@ -8,10 +8,12 @@
   "description": "A simple Scrabble cheating tool",
   "devDependencies": {
     "@types/clipboardy": "1.1.0",
+    "@types/jasmine": "2.8.8",
     "@types/node": "10.9.4",
     "jasmine": "3.2.0",
     "prettier": "1.14.2",
     "rimraf": "2.6.2",
+    "ts-node": "7.0.1",
     "typescript": "3.0.3"
   },
   "files": [
@@ -26,9 +28,9 @@
     "clear": "rimraf dist",
     "build": "tsc",
     "dist": "yarn clear && yarn build",
-    "prettier": "prettier --write src/*.ts bin/* spec/**/*.js",
+    "prettier": "prettier --ignore-path .gitignore --write \"**/*.ts\"",
     "start": "yarn dist && echo \"Run './bin/scrabble-cheater --help'\"",
-    "test": "yarn dist && jasmine --config=spec/support/jasmine.json"
+    "test": "ts-node -P tsconfig.jasmine.json node_modules/.bin/jasmine"
   },
   "types": "dist/index.d.ts",
   "version": "1.1.2"

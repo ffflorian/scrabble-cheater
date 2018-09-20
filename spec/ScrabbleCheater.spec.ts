@@ -1,7 +1,5 @@
-//@ts-check
-
-const { default: ScrabbleCheater } = require('../');
-const path = require('path');
+import ScrabbleCheater from '../src';
+import * as path from 'path';
 const wordList = path.resolve(__dirname, 'wordlist.txt');
 const emptyList = path.resolve(__dirname, 'empty.txt');
 

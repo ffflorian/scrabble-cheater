@@ -1,4 +1,3 @@
-import * as path from 'path';
 import * as fs from 'fs';
 import * as readline from 'readline';
 import * as clipboard from 'clipboardy';
