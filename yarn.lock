@@ -6,9 +6,9 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@types/clipboardy/-/clipboardy-1.1.0.tgz#316fe1a3ed71b1a51becb925e7e0497986c6a85c"
 
-"@types/jasmine@3.3.1":
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.3.1.tgz#b6c4f356013364e98b583647c7b3b6de6fccd2cc"
+"@types/jasmine@3.3.2":
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.3.2.tgz#a5a0ac81ed914e252790d2f362c07150577f9bcc"
 
 "@types/node@10.12.7":
   version "10.12.7"
