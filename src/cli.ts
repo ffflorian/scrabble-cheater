@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
-import ScrabbleCheater from './';
 import program = require('commander');
+import ScrabbleCheater from './';
 
-const { description, version }: {description: string; version: string} = require('../package.json');
+const {
+  description,
+  version
+}: { description: string; version: string } = require('../package.json');
 
 program
   .version(version)

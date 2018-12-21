@@ -1,19 +1,19 @@
+import * as clipboard from 'clipboardy';
 import * as fs from 'fs';
 import * as readline from 'readline';
-import * as clipboard from 'clipboardy';
 
 export default class ScrabbleCheater {
-  private dictionary: Array<string> = [];
+  private dictionary: string[] = [];
 
   constructor(
-    private wordListPath: string,
+    private readonly wordListPath: string,
     private letters?: string,
-    private quietMode = false,
-    private maximum = 0,
-    private singleMode = false
+    private readonly quietMode = false,
+    private readonly maximum = 0,
+    private readonly singleMode = false
   ) {}
 
-  public start(): Promise<Array<string>> {
+  public start(): Promise<string[]> {
     return this.loadWords()
       .then(length => {
         if (length) {
@@ -54,7 +54,7 @@ export default class ScrabbleCheater {
     return Promise.resolve(this);
   }
 
-  private findMatches(letters: string): Array<string> {
+  private findMatches(letters: string): string[] {
     const regex = new RegExp(`^[${letters}]+\$`);
 
     return this.dictionary
@@ -117,7 +117,7 @@ export default class ScrabbleCheater {
     });
   }
 
-  private singleOutput(matches: Array<string>): void {
+  private singleOutput(matches: string[]): void {
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout
