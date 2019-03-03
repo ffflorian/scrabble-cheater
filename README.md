@@ -1,4 +1,4 @@
-# ScrabbleCheater [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=ffflorian/scrabble-cheater)](https://dependabot.com)
+# ScrabbleCheater  [![npm version](https://img.shields.io/npm/v/scrabble-cheater.svg?style=flat)](https://www.npmjs.com/package/scrabble-cheater) [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=ffflorian/scrabble-cheater)](https://dependabot.com)
 This is a simple Scrabble cheating tool designed for Andy's [scrabble-bot](https://github.com/AndyLnd/scrabble-bot) (but can be used for a normal Scrabble game, too).
 
 Of course you shouldn't be using this and I'm not responsible if people call you a cheater.
