@@ -1,5 +1,5 @@
-import ScrabbleCheater from '../src';
 import * as path from 'path';
+import ScrabbleCheater from '../src';
 const wordList = path.resolve(__dirname, 'wordlist.txt');
 const emptyList = path.resolve(__dirname, 'empty.txt');
 

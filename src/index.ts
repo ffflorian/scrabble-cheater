@@ -31,12 +31,7 @@ export default class ScrabbleCheater {
         this.log(`ScrabbleCheater: ${matches.length} matches found`, true);
 
         if (this.maximum) {
-          this.log(
-            `, ${this.singleMode ? 'sending' : 'displaying'} the first ${
-              this.maximum
-            }`,
-            true
-          );
+          this.log(`, ${this.singleMode ? 'sending' : 'displaying'} the first ${this.maximum}`, true);
           matches = matches.slice(0, this.maximum);
         }
 
@@ -57,9 +52,7 @@ export default class ScrabbleCheater {
   private findMatches(letters: string): string[] {
     const regex = new RegExp(`^[${letters}]+\$`);
 
-    return this.dictionary
-      .filter((value, index) => regex.test(value))
-      .sort((a, b) => b.length - a.length);
+    return this.dictionary.filter((value, index) => regex.test(value)).sort((a, b) => b.length - a.length);
   }
 
   private formatLetters(letters: string): string {
@@ -102,7 +95,7 @@ export default class ScrabbleCheater {
     return new Promise((resolve, reject) => {
       const rl = readline.createInterface({
         input: process.stdin,
-        output: process.stdout
+        output: process.stdout,
       });
 
       rl.question('Letters? ', input => {
@@ -120,7 +113,7 @@ export default class ScrabbleCheater {
   private singleOutput(matches: string[]): void {
     const rl = readline.createInterface({
       input: process.stdin,
-      output: process.stdout
+      output: process.stdout,
     });
 
     let counter = 0;
