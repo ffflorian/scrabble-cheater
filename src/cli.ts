@@ -3,10 +3,7 @@
 import program = require('commander');
 import ScrabbleCheater from './';
 
-const {
-  description,
-  version
-}: { description: string; version: string } = require('../package.json');
+const {description, version}: {description: string; version: string} = require('../package.json');
 
 program
   .version(version)
@@ -15,10 +12,7 @@ program
   .option('-l, --letters <letters>', 'Specify letters')
   .option('-q, --quiet', 'Quiet mode: displays only the letters')
   .option('-m, --maximum <number>', 'Specify a maximum of results')
-  .option(
-    '-s, --single',
-    'Single word mode: displays each word and copies it to the clipboard'
-  )
+  .option('-s, --single', 'Single word mode: displays each word and copies it to the clipboard')
   .parse(process.argv);
 
 if (!program.wordlist) {
@@ -31,13 +25,7 @@ if (program.maximum && !parseInt(program.maximum, 10)) {
   program.help();
 }
 
-new ScrabbleCheater(
-  program.wordlist,
-  program.letters,
-  program.quiet,
-  program.maximum,
-  program.single
-)
+new ScrabbleCheater(program.wordlist, program.letters, program.quiet, program.maximum, program.single)
   .start()
   .then(matches => {
     if (matches.length && !program.single) {
