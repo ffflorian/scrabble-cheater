@@ -4,7 +4,7 @@
     "scrabble-cheater": "dist/cli.js"
   },
   "dependencies": {
-    "clipboardy": "1.2.3",
+    "clipboardy": "2.0.0",
     "commander": "2.20.0"
   },
   "description": "A simple Scrabble cheating tool.",
