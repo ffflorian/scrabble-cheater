@@ -10,7 +10,7 @@
   "description": "A simple Scrabble cheating tool.",
   "devDependencies": {
     "@ffflorian/prettier-config": "0.0.4",
-    "@ffflorian/tslint-config": "0.2.1",
+    "@ffflorian/tslint-config": "0.2.2",
     "@types/jasmine": "3.3.12",
     "@types/node": "~12",
     "husky": "2.3.0",
