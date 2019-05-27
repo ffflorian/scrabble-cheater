@@ -9,7 +9,7 @@
   },
   "description": "A simple Scrabble cheating tool.",
   "devDependencies": {
-    "@ffflorian/prettier-config": "0.0.4",
+    "@ffflorian/prettier-config": "0.0.5",
     "@ffflorian/tslint-config": "0.2.2",
     "@types/jasmine": "3.3.12",
     "@types/node": "~12",
