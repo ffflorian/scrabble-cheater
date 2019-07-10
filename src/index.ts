@@ -1,3 +1,5 @@
+//tslint:disable:no-default-export
+
 import * as clipboard from 'clipboardy';
 import * as fs from 'fs';
 import * as readline from 'readline';
