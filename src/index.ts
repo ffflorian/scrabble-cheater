@@ -1,60 +1,68 @@
-//tslint:disable:no-default-export
-
 import * as clipboard from 'clipboardy';
 import * as fs from 'fs';
 import * as readline from 'readline';
+import {promisify} from 'util';
+const readFileAsync = promisify(fs.readFile);
 
-export default class ScrabbleCheater {
+export interface Options {
+  letters?: string;
+  maximum?: number;
+  quietMode?: boolean;
+  singleMode?: boolean;
+}
+
+const defaultOptions: Required<Options> = {
+  letters: '',
+  maximum: 0,
+  quietMode: false,
+  singleMode: false,
+};
+
+export class ScrabbleCheater {
   private dictionary: string[] = [];
+  private readonly wordListPath: string;
+  private readonly options: Required<Options>;
 
-  constructor(
-    private readonly wordListPath: string,
-    private letters?: string,
-    private readonly quietMode = false,
-    private readonly maximum = 0,
-    private readonly singleMode = false
-  ) {}
-
-  public start(): Promise<string[]> {
-    return this.loadWords()
-      .then(length => {
-        if (length) {
-          this.log(`${length} word${length > 1 ? 's' : ''} loaded.`);
-        } else {
-          return Promise.reject('No words loaded. Wordlist file corrupt?');
-        }
-        if (this.letters) {
-          return this.formatLetters(this.letters);
-        }
-        return this.readLineAsync();
-      })
-      .then(letters => {
-        let matches = this.findMatches(letters);
-        this.log(`ScrabbleCheater: ${matches.length} matches found`, true);
-
-        if (this.maximum) {
-          this.log(`, ${this.singleMode ? 'sending' : 'displaying'} the first ${this.maximum}`, true);
-          matches = matches.slice(0, this.maximum);
-        }
-
-        this.log('.\n\n', true);
-
-        if (this.singleMode) {
-          this.singleOutput(matches);
-        }
-        return matches;
-      });
+  constructor(wordListPath: string, options?: Options) {
+    this.wordListPath = wordListPath;
+    this.options = {...defaultOptions, ...options};
   }
 
-  public setLetters(letters: string): Promise<ScrabbleCheater> {
-    this.letters = letters;
-    return Promise.resolve(this);
+  public async start(): Promise<string[]> {
+    const length = await this.loadWords();
+    if (!length) {
+      throw new Error('No words loaded. Wordlist file corrupt?');
+    }
+
+    this.log(`${length} word${length > 1 ? 's' : ''} loaded.`);
+
+    const letters = this.options.letters ? this.formatLetters(this.options.letters) : await this.readLineAsync();
+    let matches = this.findMatches(letters);
+
+    this.log(`ScrabbleCheater: ${matches.length} matches found`, true);
+
+    if (this.options.maximum) {
+      this.log(`, ${this.options.singleMode ? 'sending' : 'displaying'} the first ${this.options.maximum}`, true);
+      matches = matches.slice(0, this.options.maximum);
+    }
+
+    this.log('.\n\n', true);
+
+    if (this.options.singleMode) {
+      this.singleOutput(matches);
+    }
+
+    return matches;
+  }
+
+  public setLetters(letters: string): ScrabbleCheater {
+    this.options.letters = letters;
+    return this;
   }
 
   private findMatches(letters: string): string[] {
     const regex = new RegExp(`^[${letters}]+\$`);
-
-    return this.dictionary.filter((value, index) => regex.test(value)).sort((a, b) => b.length - a.length);
+    return this.dictionary.filter(word => regex.test(word)).sort((a, b) => b.length - a.length);
   }
 
   private formatLetters(letters: string): string {
@@ -62,35 +70,22 @@ export default class ScrabbleCheater {
     return letters.replace(regex, '').toLowerCase();
   }
 
-  private loadWords(): Promise<number> {
+  private async loadWords(): Promise<number> {
     const regex = new RegExp('^[A-Za-z]+$');
 
-    return this.readFileAsync(this.wordListPath).then(wordList => {
-      this.dictionary = wordList.split('\n').filter(value => regex.test(value));
-      return this.dictionary.length;
-    });
+    const wordList = await readFileAsync(this.wordListPath, 'utf-8');
+    this.dictionary = wordList.split('\n').filter(value => regex.test(value));
+    return this.dictionary.length;
   }
 
   private log(message: string, raw = false): void {
-    if (!this.quietMode) {
+    if (!this.options.quietMode) {
       if (!raw) {
         console.info(`ScrabbleCheater: ${message}`);
       } else {
         process.stdout.write(message);
       }
     }
-  }
-
-  private readFileAsync(filePath: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      fs.readFile(filePath, (error, data) => {
-        if (!error) {
-          resolve(data.toString());
-        } else {
-          reject(error.message);
-        }
-      });
-    });
   }
 
   private readLineAsync(): Promise<string> {

@@ -20,28 +20,26 @@ dist/cli.js
 ## Usage
 
 ```
-  Usage: scrabble-cheater [options]
+Usage: scrabble-cheater [options]
 
-  A simple Scrabble cheating tool.
+A simple Scrabble cheating tool.
 
-
-  Options:
-
-    -V, --version            output the version number
-    -w, --wordlist <file>    Specify a wordlist file (mandatory)
-    -m, --maximum <number>   Specify a maximum of results
-    -l, --letters <letters>  Specify letters
-    -q, --quiet              Quiet mode: displays only the letters
-    -s, --single             Single word mode: displays each word and copies it to the clipboard
-    -h, --help               output usage information
+Options:
+  -V, --version            output the version number
+  -w, --wordlist <file>    Specify a wordlist file (mandatory)
+  -l, --letters <letters>  Specify letters
+  -q, --quiet              Quiet mode: displays only the letters
+  -m, --maximum <number>   Specify a maximum of results
+  -s, --single             Single word mode: displays each word and copies it to the clipboard
+  -h, --help               output usage information
 ```
 
 ## Include in your project
 
 ```ts
-import ScrabbleCheater from 'scrabble-cheater';
+import {ScrabbleCheater} from 'scrabble-cheater';
 
 new ScrabbleCheater('./my-wordlist.txt', 'l e t t e r s').start().then(matches => {
-  console.log(matches); // [ 'match1', 'match2', ... ]
+  // [ 'match1', 'match2', ... ]
 });
 ```

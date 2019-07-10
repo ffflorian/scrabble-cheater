@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
 import program = require('commander');
-import ScrabbleCheater from './';
+import {Options, ScrabbleCheater} from './';
 
-const {description, version}: {description: string; version: string} = require('../package.json');
+const {description, name, version}: {description: string; name: string; version: string} = require('../package.json');
 
 program
+  .name(name)
   .version(version)
   .description(description)
   .option('-w, --wordlist <file>', 'Specify a wordlist file (mandatory)')
@@ -25,7 +26,14 @@ if (program.maximum && !parseInt(program.maximum, 10)) {
   program.help();
 }
 
-new ScrabbleCheater(program.wordlist, program.letters, program.quiet, program.maximum, program.single)
+const options: Options = {
+  ...(program.letters && {letters: program.letters}),
+  ...(program.maximum && {maximum: program.maximum}),
+  ...(program.quiet && {quiet: program.quiet}),
+  ...(program.single && {single: program.single}),
+};
+
+new ScrabbleCheater(program.wordlist, options)
   .start()
   .then(matches => {
     if (matches.length && !program.single) {
