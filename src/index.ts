@@ -20,12 +20,17 @@ const defaultOptions: Required<Options> = {
 
 export class ScrabbleCheater {
   private dictionary: string[] = [];
-  private readonly wordListPath: string;
   private readonly options: Required<Options>;
+  private readonly wordListPath: string;
 
   constructor(wordListPath: string, options?: Options) {
     this.wordListPath = wordListPath;
     this.options = {...defaultOptions, ...options};
+  }
+
+  public setLetters(letters: string): ScrabbleCheater {
+    this.options.letters = letters;
+    return this;
   }
 
   public async start(): Promise<string[]> {
@@ -53,11 +58,6 @@ export class ScrabbleCheater {
     }
 
     return matches;
-  }
-
-  public setLetters(letters: string): ScrabbleCheater {
-    this.options.letters = letters;
-    return this;
   }
 
   private findMatches(letters: string): string[] {
