@@ -1,11 +1,12 @@
 import * as path from 'path';
-import ScrabbleCheater from '../src';
+import {ScrabbleCheater} from '../src/';
+
 const wordList = path.resolve(__dirname, 'wordlist.txt');
 const emptyList = path.resolve(__dirname, 'empty.txt');
 
 describe('ScrabbleCheater', () => {
   it('finds all words', done => {
-    const sc = new ScrabbleCheater(wordList, 'her', true);
+    const sc = new ScrabbleCheater(wordList, {letters: 'her', quietMode: true});
     sc.start()
       .then(matches => {
         expect(matches.includes('here')).toBe(true);
