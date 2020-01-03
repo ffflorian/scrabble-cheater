@@ -3,7 +3,7 @@ name: Pull request
 on: pull_request
 
 jobs:
-  build_test:
+  build_lint_test:
     name: Build, lint and test
     runs-on: ubuntu-latest
     steps:
@@ -27,8 +27,3 @@ jobs:
           yarn lint
           yarn test
           yarn dist
-        env:
-          NODE_ENV: development
-        if: |
-          contains(github.event.commits[0].message, '[skip ci]') == false &&
-          contains(github.event.commits[0].message, '[ci skip]') == false

@@ -1,12 +1,20 @@
 #!/usr/bin/env node
 
 import program = require('commander');
+import * as fs from 'fs';
+import * as path from 'path';
+
 import {Options, ScrabbleCheater} from './';
 
-const {description, name, version}: {description: string; name: string; version: string} = require('../package.json');
+const defaultPackageJsonPath = path.join(__dirname, 'package.json');
+const packageJsonPath = fs.existsSync(defaultPackageJsonPath)
+  ? defaultPackageJsonPath
+  : path.join(__dirname, '../package.json');
+
+const {bin, description, version} = require(packageJsonPath);
 
 program
-  .name(name)
+  .name(Object.keys(bin)[0])
   .version(version)
   .description(description)
   .option('-w, --wordlist <file>', 'Specify a wordlist file (mandatory)')
