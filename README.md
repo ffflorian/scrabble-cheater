@@ -1,4 +1,4 @@
-# ScrabbleCheater [![Build Status](https://action-badges.now.sh/ffflorian/scrabble-cheater)](https://github.com/ffflorian/scrabble-cheater/actions/) [![npm version](https://img.shields.io/npm/v/scrabble-cheater.svg?style=flat)](https://www.npmjs.com/package/scrabble-cheater) [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=ffflorian/scrabble-cheater)](https://dependabot.com)
+# ScrabbleCheater [![Build Status](https://github.com/ffflorian/scrabble-cheater/workflows/Build/badge.svg)](https://github.com/ffflorian/scrabble-cheater/actions/) [![npm version](https://img.shields.io/npm/v/scrabble-cheater.svg?style=flat)](https://www.npmjs.com/package/scrabble-cheater) [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=ffflorian/scrabble-cheater)](https://dependabot.com)
 
 This is a simple Scrabble cheating tool designed for Andy's [scrabble-bot](https://github.com/AndyLnd/scrabble-bot) (but can be used for a normal Scrabble game, too).
 
