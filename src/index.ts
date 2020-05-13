@@ -62,7 +62,7 @@ export class ScrabbleCheater {
 
   private findMatches(letters: string): string[] {
     const regex = new RegExp(`^[${letters}]+\$`);
-    return this.dictionary.filter(word => regex.test(word)).sort((a, b) => b.length - a.length);
+    return this.dictionary.filter(word => regex.test(word)).sort((wordA, wordB) => wordB.length - wordA.length);
   }
 
   private formatLetters(letters: string): string {
@@ -100,7 +100,7 @@ export class ScrabbleCheater {
         if (letters) {
           resolve(letters);
         } else {
-          reject('No letters entered.');
+          reject(new Error('No letters entered.'));
         }
         rl.close();
       });
@@ -116,7 +116,6 @@ export class ScrabbleCheater {
     let counter = 0;
 
     const next = () => {
-      console.log(matches[counter]);
       clipboard.writeSync(matches[counter]);
       if (counter < matches.length - 1) {
         this.log('Press Enter to copy the next word...');

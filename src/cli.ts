@@ -45,7 +45,7 @@ new ScrabbleCheater(program.wordlist, options)
   .start()
   .then(matches => {
     if (matches.length && !program.single) {
-      console.log(matches.join('\n'));
+      console.info(matches.join('\n'));
     }
   })
   .catch(err => console.error('Error:', err));
