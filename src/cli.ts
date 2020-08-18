@@ -41,11 +41,15 @@ const options: Options = {
   ...(program.single && {single: program.single}),
 };
 
-new ScrabbleCheater(program.wordlist, options)
-  .start()
-  .then(matches => {
+void (async () => {
+  try {
+    const matches = await new ScrabbleCheater(program.wordlist, options).start();
     if (matches.length && !program.single) {
       console.info(matches.join('\n'));
     }
-  })
-  .catch(err => console.error('Error:', err));
+    process.exit();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+})();
