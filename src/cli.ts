@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import program = require('commander');
+import * as program from 'commander';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -24,27 +24,29 @@ program
   .option('-s, --single', 'Single word mode: displays each word and copies it to the clipboard')
   .parse(process.argv);
 
-if (!program.wordlist) {
+const commanderOptions = program.opts();
+
+if (!commanderOptions.wordlist) {
   console.error('  Error: no wordlist file specified.');
   program.help();
 }
 
-if (program.maximum && !parseInt(program.maximum, 10)) {
+if (commanderOptions.maximum && !parseInt(commanderOptions.maximum, 10)) {
   console.error('  Error: invalid maximum number specified.');
   program.help();
 }
 
 const options: Options = {
-  ...(program.letters && {letters: program.letters}),
-  ...(program.maximum && {maximum: program.maximum}),
-  ...(program.quiet && {quiet: program.quiet}),
-  ...(program.single && {single: program.single}),
+  ...(commanderOptions.letters && {letters: commanderOptions.letters}),
+  ...(commanderOptions.maximum && {maximum: commanderOptions.maximum}),
+  ...(commanderOptions.quiet && {quiet: commanderOptions.quiet}),
+  ...(commanderOptions.single && {single: commanderOptions.single}),
 };
 
 void (async () => {
   try {
-    const matches = await new ScrabbleCheater(program.wordlist, options).start();
-    if (matches.length && !program.single) {
+    const matches = await new ScrabbleCheater(commanderOptions.wordlist, options).start();
+    if (matches.length && !commanderOptions.single) {
       console.info(matches.join('\n'));
     }
     process.exit();
