@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "clipboardy": "2.3.0",
-    "commander": "7.2.0"
+    "commander": "8.0.0"
   },
   "description": "A simple Scrabble cheating tool.",
   "devDependencies": {
