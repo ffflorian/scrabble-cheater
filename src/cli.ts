@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import * as program from 'commander';
+import {program as commander} from 'commander';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -13,7 +13,7 @@ const packageJsonPath = fs.existsSync(defaultPackageJsonPath)
 
 const {bin, description, version} = require(packageJsonPath);
 
-program
+commander
   .name(Object.keys(bin)[0])
   .version(version)
   .description(description)
@@ -24,16 +24,16 @@ program
   .option('-s, --single', 'Single word mode: displays each word and copies it to the clipboard')
   .parse(process.argv);
 
-const commanderOptions = program.opts();
+const commanderOptions = commander.opts();
 
 if (!commanderOptions.wordlist) {
   console.error('  Error: no wordlist file specified.');
-  program.help();
+  commander.help();
 }
 
 if (commanderOptions.maximum && !parseInt(commanderOptions.maximum, 10)) {
   console.error('  Error: invalid maximum number specified.');
-  program.help();
+  commander.help();
 }
 
 const options: Options = {
