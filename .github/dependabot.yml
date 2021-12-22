@@ -17,3 +17,6 @@ updates:
       - dependency-name: 'husky'
         versions:
           - '>= 5.x'
+      - dependency-name: 'clipboardy'
+        versions:
+          - '>= 3.x'
